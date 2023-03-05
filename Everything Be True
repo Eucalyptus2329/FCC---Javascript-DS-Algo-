@@ -1,0 +1,55 @@
+Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+
+In other words, you are given an array collection of objects. The predicate pre will be an object property and you need to return true if its value is truthy. Otherwise, return false.
+
+In JavaScript, truthy values are values that translate to true when evaluated in a Boolean context.
+
+Remember, you can access object properties through either dot notation or [] notation.
+
+
+MY solution
+function truthCheck(collection, pre) {
+  //array to iterate
+  //if every boolean of predicate values === true, return true
+  let truth = (currentvalue) => Boolean(currentvalue[pre]) === true;
+  return collection.every(truth)
+}
+
+The every() method tests whether all elements in the array pass the test implemented by the provided function. It returns a Boolean value.
+Example:
+const isBelowThreshold = (currentValue) => currentValue < 40;
+
+const array1 = [1, 30, 39, 29, 10, 13];
+
+console.log(array1.every(isBelowThreshold));
+// Expected output: true
+
+
+Solution 1: 
+function truthCheck(collection, pre) {
+  // Create a counter to check how many are true.
+  let counter = 0;
+  // Check for each object
+  for (let c in collection) {
+    // If it is has property and value is truthy
+    if (collection[c].hasOwnProperty(pre) && Boolean(collection[c][pre])) {
+      counter++;
+    }
+  }
+  // Outside the loop, check to see if we got true for all of them and return true or false
+  return counter == collection.length;
+}
+
+Solution 2:
+function truthCheck(collection, pre) {
+  return collection.every(function (element) {
+    return element.hasOwnProperty(pre) && Boolean(element[pre]);
+  });
+}
+
+Solution 3:
+function truthCheck(collection, pre) {
+  // Is everyone being true?
+  return collection.every(obj => obj[pre]);
+}
+
